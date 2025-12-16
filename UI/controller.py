@@ -19,6 +19,7 @@ class Controller:
             self._view.show_alert("Anno fuori intervallo (1950-2024).")
             return
 
+        self._model.G.clear ()
         self._model.build_weighted_graph(anno)
         self._view.lista_visualizzazione_1.controls.clear()
         self._view.lista_visualizzazione_1.controls.append(
@@ -48,4 +49,13 @@ class Controller:
 
     """Implementare la parte di ricerca del cammino minimo"""
     # TODO
+    def handle_cammini_minimi (self, e) :
 
+        self._view.lista_cammini_minimi.controls.clear()
+
+        soglia = float(self._view.txt_soglia.value)
+        cammino_minimo, peso_minimo = self._model.cammino_minimo(soglia)
+        self._view.lista_cammini_minimi.controls.append (ft.Text ("Cammino minimo: "))
+        self._view.lista_cammini_minimi.controls.append (ft.Text(f"{' --> '.join(cammino_minimo)}." + f" Peso: {peso_minimo}"))
+
+        self._view.update()
